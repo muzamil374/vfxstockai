@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FXSTOCK AI</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1 class="logo">FXSTOCK <span>AI</span></h1>
+
+<input type="text" placeholder="🔍 Search VFX..." class="search">
+
+<div class="categories">
+
+<div class="folder blue" onclick="showSection('vfx')">
+<img src="thumbnails/ready.jpg">
+<h2>READY TO USE</h2>
+</div>
+
+<div class="folder green" onclick="showSection('green')">
+<img src="thumbnails/green.jpg">
+<h2>GREEN TEMPLATES</h2>
+</div>
+
+</div>
+
+<h3 id="title">Select a Category</h3>
+
+<div id="vfx" class="grid"></div>
+<div id="green" class="grid"></div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
