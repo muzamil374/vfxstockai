@@ -1,39 +1,72 @@
-function showSection(section) {
+function openSection(section) {
 
-    document.getElementById("vfx").style.display = "none";
-    document.getElementById("green").style.display = "none";
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("sectionView").classList.remove("hidden");
 
-    document.getElementById(section).style.display = "grid";
+    const titles = {
+        vfx: "READY TO USE CLIPS",
+        green: "GREEN SCREEN TEMPLATES"
+    };
 
-    document.getElementById("title").innerText =
-        section === "vfx" ? "READY TO USE CLIPS" : "GREEN SCREEN TEMPLATES";
+    document.getElementById("title").innerText = titles[section];
 
-    if (section === "vfx") loadClips("vfx", "rdy", 19, 20);
-    if (section === "green") loadClips("green", "gt", 15, 20);
+    loadClips(section);
 }
 
 
-function loadClips(folder, prefix, price, maxClips) {
+// 🔒 LOCKED PANELS
+function locked() {
+    alert("🔒 This category is locked.\nAdd reels to unlock it.");
+}
 
-    const container = document.getElementById(folder);
-    container.innerHTML = "";
 
-    for (let i = 1; i <= maxClips; i++) {
+// 🏠 BACK HOME
+function goHome() {
+    document.getElementById("sectionView").classList.add("hidden");
+    document.getElementById("home").classList.remove("hidden");
+}
 
-        const videoPath = `clips/${folder}/${prefix}${i}.mp4`;
+
+// 🎬 LOAD CLIPS
+function loadClips(folder) {
+
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+
+    const config = {
+        vfx: { prefix: "rdy", price: 19, count: 20 },
+        green: { prefix: "gt", price: 15, count: 20 }
+    };
+
+    const data = config[folder];
+
+    for (let i = 1; i <= data.count; i++) {
+
+        const path = `./clips/${folder}/${data.prefix}${i}.mp4`;
 
         const card = document.createElement("div");
         card.className = "card";
 
-        card.innerHTML = `
-            <video src="${videoPath}" controls 
-                onerror="this.parentElement.style.display='none'">
-            </video>
-            <h4>${prefix.toUpperCase()} ${i}</h4>
-            <button onclick="payNow(${price})">Buy ₹${price}</button>
-        `;
+        const video = document.createElement("video");
+        video.src = path;
+        video.controls = true;
 
-        container.appendChild(card);
+        video.onerror = () => {
+            card.style.display = "none";
+        };
+
+        const title = document.createElement("h4");
+        title.innerText = `${data.prefix.toUpperCase()} ${i}`;
+
+        const btn = document.createElement("button");
+        btn.innerText = `Buy ₹${data.price}`;
+        btn.onclick = () => payNow(data.price);
+
+        card.appendChild(video);
+        card.appendChild(title);
+        card.appendChild(btn);
+
+        grid.appendChild(card);
     }
 }
 
@@ -45,8 +78,8 @@ function payNow(amount) {
         key: "YOUR_RAZORPAY_KEY",
         amount: amount * 100,
         currency: "INR",
-        name: "FXSTOCK AI",
-        description: "VFX Clip Purchase",
+        name: "MorphClip",
+        description: "Clip Purchase",
         handler: function () {
             alert("Payment Successful ✅");
         }

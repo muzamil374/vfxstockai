@@ -2,38 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FXSTOCK AI</title>
+<title>MorphClip</title>
 
 <link rel="stylesheet" href="style.css">
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 </head>
+
 <body>
 
-<div class="container">
+<!-- 🏠 HOME SCREEN -->
+<div id="home" class="screen">
 
-<h1 class="logo">FXSTOCK <span>AI</span></h1>
-
-<input type="text" placeholder="🔍 Search VFX..." class="search">
+<h1 class="logo">Morph<span>Clip</span></h1>
 
 <div class="categories">
 
-<div class="folder blue" onclick="showSection('vfx')">
+<div class="folder blue" onclick="openSection('vfx')">
 <img src="thumbnails/ready.jpg">
 <h2>READY TO USE</h2>
 </div>
 
-<div class="folder green" onclick="showSection('green')">
+<div class="folder green" onclick="openSection('green')">
 <img src="thumbnails/green.jpg">
 <h2>GREEN TEMPLATES</h2>
 </div>
 
+<div class="folder locked" onclick="locked()">
+<img src="thumbnails/ai.jpg">
+<h2>AI REELS 🔒</h2>
 </div>
 
-<h3 id="title">Select a Category</h3>
+<div class="folder locked" onclick="locked()">
+<img src="thumbnails/cric.jpg">
+<h2>CRICKET REELS 🔒</h2>
+</div>
 
-<div id="vfx" class="grid"></div>
-<div id="green" class="grid"></div>
+</div>
+
+</div>
+
+
+<!-- 🎬 SECTION VIEW -->
+<div id="sectionView" class="screen hidden">
+
+<button class="back" onclick="goHome()">⬅ Back</button>
+
+<h2 id="title"></h2>
+
+<div id="grid" class="grid"></div>
 
 </div>
 
